@@ -1,0 +1,29 @@
+name: Daily Commits
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # Каждый день в 12:00 по МСК
+  workflow_dispatch:
+
+jobs:
+  commit-streak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git config
+        run: |
+          git config user.name "finniy"
+          git config user.email "anton.lakhtion@gmail.com"
+
+      - name: Make 6 commits
+        run: |
+          for i in {1..6}
+          do
+            echo "Commit $i on $(date)" >> daily.txt
+            git add daily.txt
+            git commit -m "Auto commit $i on $(date)"
+            sleep 20  # пауза между коммитами (20 сек)
+          done
+          git push
