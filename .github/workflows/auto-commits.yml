@@ -17,13 +17,15 @@ jobs:
           git config user.name "finniy"
           git config user.email "anton.lakhtion@gmail.com"
 
-      - name: Make 6 commits
+      - name: Make random commits
         run: |
-          for i in {1..6}
+          count=$((RANDOM % 4 + 6))  # рандомное число от 6 до 9
+          echo "Making $count commits"
+          for i in $(seq 1 $count)
           do
             echo "Commit $i on $(date)" >> daily.txt
             git add daily.txt
             git commit -m "Auto commit $i on $(date)"
             sleep 20  # пауза между коммитами (20 сек)
           done
-          git push
+          git pushh
