@@ -28,4 +28,7 @@ jobs:
             git commit -m "Auto commit $i on $(date)"
             sleep 20  # пауза между коммитами (20 сек)
           done
-          git pushh
+
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
